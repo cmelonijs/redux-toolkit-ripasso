@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { addDate } from '../datesSlice';
-import { store } from '../store';
 
 export default function Home() {
   const dates = useSelector((state) => state.dates.value);
@@ -9,13 +8,15 @@ export default function Home() {
   const handleClick = () => {
     dispatch(addDate())
   }
-
+  
   return (
-    <>
-      <button onClick={handleClick}>Cattura il momento</button>
-      {dates.forEach((date) => (
-        <h1>{date}</h1>
-      ))}
-    </>
+      <>
+        <button onClick={handleClick}>Cattura il momento</button>
+        {dates.map((date, idx) => {
+          console.log('date.toISOString()', date.toISOString())
+          return (
+          <h1 key={idx}>{date.toISOString()}</h1>
+        )})}
+      </>
   )
 }
